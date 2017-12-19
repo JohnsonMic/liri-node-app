@@ -13,10 +13,12 @@ var params = {ONE_name: 'nodejs',count: 20};
 var switchFunction = process.argv[2];
 
 if (switchFunction	=== "spotify-this-song"){
-	gotData();
 }
 else if (switchFunction	 === "my-tweets"){
 	client.get('statuses/user_timeline', params, gotData);
+}
+else if (switchFunction	=== "movie-this"){
+movieRequest()
 }
 
 function gotData(error, tweets, response) {
@@ -28,35 +30,39 @@ function gotData(error, tweets, response) {
   }
 }
 
-// var query = process.argv[3]
-// var queryUrl = "http://www.omdbapi.com/?t= "+ query + "&y=&plot=short&apikey=trilogy"
-// var request = require('request');
-
-//  request(queryUrl, function(error, response, body) {
-//  	if (error){
-//  		console.log(error);
-//  	}
-//  	else {
-//  		 	console.log(body)
-//       body = JSON.parse(body);
-// 	  console.log('error:', error);
-// 	  console.log('statusCode:', response && response.statusCode); 
-// 	  console.log(body);
-// 	  console.log('Title:', body.Title);
-// 	  console.log('Years:', body.Year);
-// 	  console.log('Country:',body.Country);
-// 	  console.log('Source:', body.Ratings[0].Source + "Rating:"+body.Ratings[0].Value);
-// 	  console.log('rating:', body.Ratings[1]);
+function movieRequest() {
+	var query = process.argv[3]
+	var queryUrl = "http://www.omdbapi.com/?t= "+ query + "&y=&plot=short&apikey=trilogy"
+	var request = require('request');
+	 request(queryUrl, function(error, response, body) {
+ 	if (error){
+ 		console.log(error);
+ 	}
+ 	else {
+ 		 	console.log(body)
+      body = JSON.parse(body);
+	  console.log('error:', error);
+	  console.log('statusCode:', response && response.statusCode); 
+	  console.log(body);
+	  console.log('Title:', body.Title);
+	  console.log('Years:', body.Year);
+	  console.log('Country:',body.Country);
+	  console.log('Source:', body.Ratings[0].Source + "Rating:"+body.Ratings[0].Value);
+	  console.log('rating:', body.Ratings[1]);
 		
-// 		if (!error) {
-// 		      for(var i = 0; i< body.Ratings.length; i++) {
-// 		  console.log('Source:', body.Ratings[i].Source + "Rating:"+body.Ratings[i].Value);
+		if (!error) {
+		      for(var i = 0; i< body.Ratings.length; i++) {
+		  console.log('Source:', body.Ratings[i].Source + "Rating:"+body.Ratings[i].Value);
 
-// 		  }
-// 		}
+		  }
+		}
 
-//  	}
-// });
+ 	}
+});
+}
+
+
+
 
 //  commandTw0 = process.argv.slice(3).join(" ");
  
